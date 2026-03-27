@@ -20,6 +20,8 @@ export default function App() {
   const [feedback, setFeedback] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [timeLeft, setTimeLeft] = useState(60);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [level2Data, setLevel2Data] = useState<{ num: number; step: number } | null>(null);
+  const [useTimer, setUseTimer] = useState(true);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -28,48 +30,81 @@ export default function App() {
     let num = 0;
     let type: 'multiply' | 'divide' = Math.random() > 0.5 ? 'multiply' : 'divide';
 
-    // Level 1: simple with 100
+    // Level 1: Exploradores - simple with 100
     if (currentLevel === 1) {
       base = 100;
       num = Math.floor(Math.random() * 9) + 1; // 1-9
+      type = Math.random() > 0.5 ? 'multiply' : 'divide';
       if (type === 'divide') num *= 100;
     } 
-    // Level 2: with 1000
+    // Level 2: Constructores - decimal exercises with 10, 100, 1000 in sequence
     else if (currentLevel === 2) {
-      base = 1000;
-      num = Math.floor(Math.random() * 9) + 1; // 1-9
-      if (type === 'divide') num *= 1000;
+      type = 'divide';
+      let nextNum = 0;
+      let nextStep = 0;
+
+      if (!level2Data || level2Data.step >= 3) {
+        // Generate a new decimal number
+        nextNum = parseFloat((Math.random() * 90 + 10).toFixed(1));
+        nextStep = 1;
+      } else {
+        nextNum = level2Data.num;
+        nextStep = level2Data.step + 1;
+      }
+
+      setLevel2Data({ num: nextNum, step: nextStep });
+      num = nextNum;
+      base = nextStep === 1 ? 10 : nextStep === 2 ? 100 : 1000;
     } 
-    // Level 3: combined and larger numbers
+    // Level 3: Escaladores - complex decimals
     else if (currentLevel === 3) {
-      base = Math.random() > 0.5 ? 100 : 1000;
-      num = Math.floor(Math.random() * 89) + 10; // 10-99
-      if (type === 'divide') num *= base;
+      type = 'divide';
+      const scenario = Math.floor(Math.random() * 3);
+      if (scenario === 0) { // 125 ÷ 1000
+        num = Math.floor(Math.random() * 900) + 100;
+        base = 1000;
+      } else if (scenario === 1) { // 9.84 ÷ 100
+        num = parseFloat((Math.random() * 9 + 1).toFixed(2));
+        base = 100;
+      } else { // 0.75 ÷ 1000
+        num = parseFloat((Math.random() * 0.9 + 0.1).toFixed(2));
+        base = 1000;
+      }
     }
-    // Level 4: Decimal division by 10, 100, 1000
+    // Level 4: Navegantes - mixed decimals and large numbers
     else if (currentLevel === 4) {
-      base = [10, 100, 1000][Math.floor(Math.random() * 3)];
-      // Generate a decimal number like 3.5, 45.6, 7.89
-      num = parseFloat((Math.random() * 99 + 1).toFixed(Math.floor(Math.random() * 2) + 1));
-      type = 'divide'; // Focus on decimal division as requested
+      type = 'divide';
+      const scenario = Math.floor(Math.random() * 3);
+      if (scenario === 0) { // 3.456 ÷ 100
+        num = parseFloat((Math.random() * 9 + 1).toFixed(3));
+        base = 100;
+      } else if (scenario === 1) { // 78.9 ÷ 1000
+        num = parseFloat((Math.random() * 90 + 10).toFixed(1));
+        base = 1000;
+      } else { // 0.0045 ÷ 100
+        num = parseFloat((Math.random() * 0.009 + 0.001).toFixed(4));
+        base = 100;
+      }
     }
-    // Level 5: fast operations with decimals
+    // Level 5: Constructores de ciudad - expert, fast, close distractors, NO timer
     else if (currentLevel === 5) {
       base = [10, 100, 1000][Math.floor(Math.random() * 3)];
       num = parseFloat((Math.random() * 999 + 1).toFixed(Math.floor(Math.random() * 2) + 1));
       type = Math.random() > 0.5 ? 'multiply' : 'divide';
     }
-    // Level 6: final race with complex decimals
+    // Level 6: Corredores - final race, integers and decimals, optional timer
     else {
       base = [10, 100, 1000][Math.floor(Math.random() * 3)];
-      num = parseFloat((Math.random() * 9999 + 1).toFixed(Math.floor(Math.random() * 3) + 1));
+      num = Math.random() > 0.5 
+        ? Math.floor(Math.random() * 9000) + 100 
+        : parseFloat((Math.random() * 999 + 1).toFixed(2));
       type = Math.random() > 0.5 ? 'multiply' : 'divide';
     }
 
     const answer = type === 'multiply' ? num * base : num / base;
     // Format answer to avoid floating point issues
-    const formattedAnswer = parseFloat(answer.toFixed(4));
-    const question = `${num} ${type === 'multiply' ? '×' : '÷'} ${base}`;
+    const formattedAnswer = parseFloat(answer.toFixed(6));
+    const question = `${num.toString().replace('.', ',')} ${type === 'multiply' ? '×' : '÷'} ${base}`;
 
     const options = new Set<number>();
     options.add(formattedAnswer);
@@ -77,17 +112,17 @@ export default function App() {
     // Closer distractors for higher levels
     while (options.size < 3) {
       let wrong;
-      if (currentLevel >= 4) {
-        // Distractors that are off by one decimal place or small addition
+      if (currentLevel >= 5) {
+        // Very close distractors for Level 5 and 6
         const shift = [0.1, 10, 100, 0.01, 1000][Math.floor(Math.random() * 5)];
-        wrong = parseFloat((formattedAnswer * shift).toFixed(4));
-        if (Math.random() > 0.7) {
-          const offset = [0.1, 0.01, 1, 10][Math.floor(Math.random() * 4)];
-          wrong = parseFloat((formattedAnswer + (Math.random() > 0.5 ? offset : -offset)).toFixed(4));
+        wrong = parseFloat((formattedAnswer * shift).toFixed(6));
+        if (Math.random() > 0.5) {
+          const offset = [0.1, 0.01, 0.001, 0.0001][Math.floor(Math.random() * 4)];
+          wrong = parseFloat((formattedAnswer + (Math.random() > 0.5 ? offset : -offset)).toFixed(6));
         }
       } else {
         const shift = [0.1, 10, 100, 0.01, 1000][Math.floor(Math.random() * 5)];
-        wrong = parseFloat((formattedAnswer * shift).toFixed(2));
+        wrong = parseFloat((formattedAnswer * shift).toFixed(6));
       }
       
       if (wrong !== formattedAnswer && !isNaN(wrong) && wrong > 0) options.add(wrong);
@@ -101,10 +136,10 @@ export default function App() {
       level: currentLevel
     });
     setIsProcessing(false);
-  }, []);
+  }, [level2Data]);
 
   useEffect(() => {
-    if (gameState === 'PLAYING') {
+    if (gameState === 'PLAYING' && level === 6 && useTimer) {
       if (!currentProblem) generateProblem(level);
 
       timerRef.current = setInterval(() => {
@@ -113,17 +148,19 @@ export default function App() {
             setGameState('FINISHED');
             return 0;
           }
-          // Level 5 is faster
-          return level === 5 ? prev - 2 : prev - 1;
+          return prev - 1;
         });
       }, 1000);
+    } else if (gameState === 'PLAYING') {
+      if (!currentProblem) generateProblem(level);
+      if (timerRef.current) clearInterval(timerRef.current);
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
     }
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [gameState, currentProblem, level, generateProblem]);
+  }, [gameState, currentProblem, level, generateProblem, useTimer]);
 
   // Keyboard controls
   useEffect(() => {
@@ -189,6 +226,7 @@ export default function App() {
   const nextLevel = () => {
     setLevel(l => l + 1);
     setCorrectInLevel(0);
+    setLevel2Data(null);
     setGameState('PLAYING');
     generateProblem(level + 1);
   };
@@ -199,12 +237,14 @@ export default function App() {
     setScore(0);
     setCorrectInLevel(0);
     setTimeLeft(60);
+    setLevel2Data(null);
     generateProblem(1);
   };
 
   const selectLevel = (lvl: number) => {
     setLevel(lvl);
     setCorrectInLevel(0);
+    setLevel2Data(null);
     setGameState('PLAYING');
     generateProblem(lvl);
   };
@@ -287,10 +327,21 @@ export default function App() {
                 </div>
               </div>
               <div className="h-12 w-px bg-white/20" />
-              <div className="flex items-center gap-3">
-                <Timer className={`w-6 h-6 ${timeLeft < 10 ? 'text-red-500 animate-pulse' : 'text-yellow-400'}`} />
-                <span className={`font-mono text-3xl font-black ${timeLeft < 10 ? 'text-red-500' : ''}`}>{timeLeft}s</span>
-              </div>
+              {level === 6 && (
+                <div className="flex items-center gap-4">
+                  <button 
+                    onClick={() => setUseTimer(!useTimer)}
+                    className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all ${useTimer ? 'bg-white/20 text-white' : 'bg-white/5 text-white/50'}`}
+                    title={useTimer ? "Desactivar cronómetro" : "Activar cronómetro"}
+                  >
+                    <Timer className={`w-5 h-5 ${useTimer && timeLeft < 10 ? 'text-red-500 animate-pulse' : useTimer ? 'text-yellow-400' : ''}`} />
+                    <span className="text-xs font-bold uppercase tracking-wider">{useTimer ? 'Cronómetro ON' : 'Cronómetro OFF'}</span>
+                  </button>
+                  {useTimer && (
+                    <span className={`font-mono text-3xl font-black min-w-[60px] ${timeLeft < 10 ? 'text-red-500' : ''}`}>{timeLeft}s</span>
+                  )}
+                </div>
+              )}
             </div>
             <div className="text-right">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Puntaje</p>

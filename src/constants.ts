@@ -22,57 +22,57 @@ export const LEVELS: LevelConfig[] = [
   {
     id: 2,
     name: "Constructores",
-    role: "Construir bases sólidas con 1000",
+    role: "Construir bases sólidas con decimales",
     theme: "Escenario espacial con planetas",
     icon: "🪐",
     bgClass: "from-indigo-900 to-black",
     objectEmoji: "🪐",
     successMessage: "¡Excelente trabajo en equipo, continúen avanzando!",
-    description: "Operaciones con 1000"
+    description: "Decimales entre 10, 100 y 1000"
   },
   {
     id: 3,
     name: "Escaladores",
-    role: "Subir y superar obstáculos combinados",
+    role: "Subir y superar obstáculos con decimales complejos",
     theme: "Escenario terrestre con montañas",
     icon: "🏔️",
     bgClass: "from-slate-800 to-slate-900",
     objectEmoji: "🏔️",
     successMessage: "¡Gran esfuerzo, están listos para el siguiente reto!",
-    description: "Operaciones combinadas y números grandes"
+    description: "Operaciones con decimales complejos"
   },
   {
     id: 4,
     name: "Navegantes",
-    role: "Orientarse en aguas profundas",
+    role: "Orientarse en aguas profundas con números grandes",
     theme: "Escenario acuático con burbujas",
     icon: "🫧",
     bgClass: "from-cyan-900 to-blue-950",
     objectEmoji: "🫧",
     successMessage: "¡Navegantes, cruzaron el océano unidos!",
-    description: "Divisiones de decimales por 10, 100 y 1000"
+    description: "Mixtas con decimales y números grandes"
   },
   {
     id: 5,
     name: "Constructores de ciudad",
-    role: "Organizar y levantar estructuras rápidas",
+    role: "Organizar y levantar estructuras rápidas y precisas",
     theme: "Escenario urbano con edificios",
     icon: "🏙️",
     bgClass: "from-gray-800 to-gray-950",
     objectEmoji: "🏙️",
     successMessage: "¡Constructores de ciudad, levantaron su comunidad con esfuerzo colectivo!",
-    description: "Operaciones rápidas con decimales"
+    description: "Operaciones rápidas y precisas"
   },
   {
     id: 6,
     name: "Corredores de la meta",
-    role: "Correr juntos hacia la victoria",
+    role: "Correr juntos hacia la victoria final",
     theme: "Carrera final hasta la meta",
     icon: "🏁",
     bgClass: "from-orange-900 to-red-950",
     objectEmoji: "🏁",
     successMessage: "¡Corredores, alcanzaron la meta gracias al esfuerzo de todos!",
-    description: "Carrera final con decimales complejos"
+    description: "Carrera final: Enteros y decimales"
   }
 ];
 
