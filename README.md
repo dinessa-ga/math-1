@@ -3,6 +3,15 @@
 ## Objetivo
 Este proyecto busca reforzar el aprendizaje de divisiones y multiplicaciones con 100 y 1000, incluyendo retos con decimales por 10, 100 y 1000. El diseño está orientado a un **UX/UI educativo**, donde los estudiantes aprenden de manera progresiva, motivadora y colaborativa.
 
+### Problema
+Estudiantes requieren formar habilidades de trabajo en equipo, mientras adquieren habilidades de cálculo mental.
+
+### Solución
+Este proyecto busca formar en los estudiantes habilidades socioemocionales y lógico-matemáticas, mediante un juego interactivo conformado por 6 niveles. En cada interacción con los ejercicios matemáticos se fomenta la cultura del error, donde se muestra en pantalla frases motivadoras para seguir intentándolo. 
+
+### Propósito
+Que los estudiantes adquieran habilidades socioemocionales, como las habilidades relacionales que se reflejan en el trabajo colaborativo o en equipo. 
+
 ---
 
 ## Concepto de UX/UI educativo
