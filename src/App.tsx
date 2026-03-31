@@ -255,16 +255,16 @@ export default function App() {
     <div className={`min-h-screen bg-gradient-to-b ${currentLevelConfig?.bgClass || 'from-[#0B0E14] to-black'} text-white font-sans overflow-hidden relative transition-colors duration-1000 flex`}>
       
       {/* Level Selection Menu (Sidebar) */}
-      <aside className="w-24 bg-black/40 backdrop-blur-xl border-r border-white/10 flex flex-col items-center py-8 gap-4 z-30">
-        <div className="mb-6 text-blue-400">
-          <MapPin className="w-10 h-10" />
+      <aside className="w-16 md:w-20 lg:w-24 bg-black/40 backdrop-blur-xl border-r border-white/10 flex flex-col items-center py-4 md:py-6 lg:py-8 gap-2 md:gap-3 lg:gap-4 z-30">
+        <div className="mb-4 md:mb-6 text-blue-400">
+          <MapPin className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" />
         </div>
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-2 md:gap-3 lg:gap-4 items-center">
           {LEVELS.map((l) => (
             <button
               key={l.id}
               onClick={() => selectLevel(l.id)}
-              className={`w-16 h-16 rounded-2xl flex items-center justify-center text-3xl transition-all duration-300 relative group ${
+              className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-2xl lg:text-3xl transition-all duration-300 relative group ${
                 level === l.id 
                   ? 'bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.6)] scale-110' 
                   : 'bg-white/5 hover:bg-white/10 grayscale hover:grayscale-0'
@@ -275,15 +275,15 @@ export default function App() {
               {level === l.id && (
                 <motion.div 
                   layoutId="activeLevel"
-                  className="absolute -right-2 w-2 h-10 bg-blue-400 rounded-full"
+                  className="absolute -right-1 md:-right-2 w-1 md:w-2 h-8 md:h-10 bg-blue-400 rounded-full"
                 />
               )}
 
               {/* Tooltip - Larger XL Text */}
-              <div className="absolute left-full ml-6 px-6 py-3 bg-white text-black text-xl font-black uppercase tracking-tighter rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-200 transform translate-x-[-10px] group-hover:translate-x-0 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-50">
+              <div className="absolute left-full ml-4 md:ml-6 px-4 md:px-6 py-2 md:py-3 bg-white text-black text-sm md:text-lg lg:text-xl font-black uppercase tracking-tighter rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap transition-all duration-200 transform translate-x-[-10px] group-hover:translate-x-0 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-50">
                 {l.name}
                 {/* Arrow */}
-                <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-white rotate-45 rounded-sm" />
+                <div className="absolute top-1/2 -left-1 md:-left-2 -translate-y-1/2 w-2 md:w-4 h-2 md:h-4 bg-white rotate-45 rounded-sm" />
               </div>
             </button>
           ))}
@@ -310,42 +310,42 @@ export default function App() {
         ))}
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-8 h-screen flex flex-col relative z-10">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-6 lg:py-8 h-screen flex flex-col relative z-10">
         
         {/* HUD */}
         {gameState === 'PLAYING' && (
-          <div className="flex justify-between items-center bg-white/10 backdrop-blur-md p-6 rounded-[2rem] border border-white/20 mb-8 shadow-2xl">
-            <div className="flex items-center gap-8">
+          <div className="flex justify-between items-center bg-white/10 backdrop-blur-md p-4 md:p-6 rounded-2xl md:rounded-[2rem] border border-white/20 mb-4 md:mb-6 lg:mb-8 shadow-2xl">
+            <div className="flex items-center gap-4 md:gap-6 lg:gap-8">
               <div className="flex flex-col">
-                <div className="flex items-center gap-3">
-                  <Rocket className="text-blue-400 w-5 h-5" />
-                  <span className="font-black text-lg uppercase tracking-widest">Nivel {level}: {currentLevelConfig.name}</span>
+                <div className="flex items-center gap-2 md:gap-3">
+                  <Rocket className="text-blue-400 w-4 h-4 md:w-5 md:h-5" />
+                  <span className="font-black text-sm md:text-base lg:text-lg uppercase tracking-widest">Nivel {level}: {currentLevelConfig.name}</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-blue-200 font-medium uppercase tracking-wider mt-1">
-                  <Users className="w-4 h-4" />
+                  <Users className="w-3 h-3 md:w-4 md:h-4" />
                   <span>Rol: {currentLevelConfig.role}</span>
                 </div>
               </div>
-              <div className="h-12 w-px bg-white/20" />
+              <div className="h-8 md:h-10 lg:h-12 w-px bg-white/20" />
               {level === 6 && (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-4">
                   <button 
                     onClick={() => setUseTimer(!useTimer)}
-                    className={`flex items-center gap-2 px-3 py-1 rounded-full transition-all ${useTimer ? 'bg-white/20 text-white' : 'bg-white/5 text-white/50'}`}
+                    className={`flex items-center gap-2 px-2 md:px-3 py-1 rounded-full transition-all ${useTimer ? 'bg-white/20 text-white' : 'bg-white/5 text-white/50'}`}
                     title={useTimer ? "Desactivar cronómetro" : "Activar cronómetro"}
                   >
-                    <Timer className={`w-5 h-5 ${useTimer && timeLeft < 10 ? 'text-red-500 animate-pulse' : useTimer ? 'text-yellow-400' : ''}`} />
+                    <Timer className={`w-4 h-4 md:w-5 md:h-5 ${useTimer && timeLeft < 10 ? 'text-red-500 animate-pulse' : useTimer ? 'text-yellow-400' : ''}`} />
                     <span className="text-xs font-bold uppercase tracking-wider">{useTimer ? 'Cronómetro ON' : 'Cronómetro OFF'}</span>
                   </button>
                   {useTimer && (
-                    <span className={`font-mono text-3xl font-black min-w-[60px] ${timeLeft < 10 ? 'text-red-500' : ''}`}>{timeLeft}s</span>
+                    <span className={`font-mono text-2xl md:text-3xl lg:text-4xl font-black min-w-[50px] md:min-w-[60px] ${timeLeft < 10 ? 'text-red-500' : ''}`}>{timeLeft}s</span>
                   )}
                 </div>
               )}
             </div>
             <div className="text-right">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Puntaje</p>
-              <p className="text-4xl font-black text-blue-400 tabular-nums">{score}</p>
+              <p className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">Puntaje</p>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-black text-blue-400 tabular-nums">{score}</p>
             </div>
           </div>
         )}
@@ -363,21 +363,21 @@ export default function App() {
                 <motion.div 
                   animate={{ y: [0, -30, 0] }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                  className="text-[12rem] drop-shadow-[0_0_50px_rgba(59,130,246,0.5)]"
+                  className="text-6xl md:text-8xl lg:text-[10rem] drop-shadow-[0_0_50px_rgba(59,130,246,0.5)]"
                 >
                   {MAIN_CHARACTER.emoji}
                 </motion.div>
-                <h1 className="text-8xl font-black tracking-tighter bg-gradient-to-b from-white to-blue-400 bg-clip-text text-transparent uppercase leading-tight">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter bg-gradient-to-b from-white to-blue-400 bg-clip-text text-transparent uppercase leading-tight">
                   Misión Matemática <br /> en Equipo
                 </h1>
-                <p className="text-2xl text-blue-200 max-w-2xl mx-auto font-medium">
-                  ¡Solo avanzando juntos como equipo podemos alcanzar la meta! Resuelve operaciones con 100 y 1000, ¡y ahora también con decimales!
+                <p className="text-lg md:text-xl lg:text-2xl text-blue-200 max-w-2xl mx-auto font-medium">
+                  ¡Solo avanzando juntos como equipo podemos alcanzar la meta! Resuelve operaciones con 100 y 1000, ¡y también con decimales!
                 </p>
               </div>
 
               <button 
                 onClick={startGame}
-                className="group relative px-20 py-8 bg-blue-600 text-white rounded-full text-4xl font-black hover:bg-blue-500 transition-all shadow-[0_0_50px_rgba(37,99,235,0.6)] active:scale-95 hover:scale-105"
+                className="group relative px-12 md:px-16 lg:px-20 py-6 md:py-7 lg:py-8 bg-blue-600 text-white rounded-full text-2xl md:text-3xl lg:text-4xl font-black hover:bg-blue-500 transition-all shadow-[0_0_50px_rgba(37,99,235,0.6)] active:scale-95 hover:scale-105"
               >
                 ¡DESPEGAR!
               </button>
@@ -393,14 +393,14 @@ export default function App() {
             >
               {/* Question */}
               <div className="text-center space-y-6">
-                <p className="text-blue-400 font-black uppercase tracking-[0.4em] text-base">Resuelve la operación</p>
-                <h2 className="text-[120px] font-black leading-none tracking-tighter text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] bg-black/10 py-8 rounded-[3rem] border border-white/5">
+                <p className="text-blue-400 font-black uppercase tracking-[0.4em] text-sm md:text-base">Resuelve la operación</p>
+                <h2 className="text-6xl md:text-8xl lg:text-[100px] xl:text-[120px] font-black leading-none tracking-tighter text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] bg-black/10 py-4 md:py-6 lg:py-8 rounded-[2rem] md:rounded-[3rem] border border-white/5">
                   {currentProblem.question}
                 </h2>
               </div>
 
               {/* Stars / Options */}
-              <div className="grid grid-cols-3 gap-16 relative h-72">
+              <div className="grid grid-cols-3 gap-8 md:gap-12 lg:gap-16 relative h-48 md:h-60 lg:h-72">
                 {currentProblem.options.map((option, idx) => (
                   <button
                     key={idx}
@@ -416,7 +416,7 @@ export default function App() {
                       transition={{ repeat: Infinity, duration: 6, delay: idx * 0.8 }}
                       className="relative flex items-center justify-center"
                     >
-                      <div className={`w-48 h-48 flex items-center justify-center text-9xl transition-all duration-500 ${
+                      <div className={`w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 flex items-center justify-center text-5xl md:text-7xl lg:text-9xl transition-all duration-500 ${
                           idx === characterPos && isProcessing
                             ? 'scale-125 drop-shadow-[0_0_60px_rgba(255,255,255,0.9)]' 
                             : 'opacity-90 hover:opacity-100 hover:scale-110'
@@ -424,7 +424,7 @@ export default function App() {
                         {currentLevelConfig.objectEmoji}
                       </div>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-6xl font-black text-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)] bg-black/30 px-6 py-2 rounded-2xl border border-white/10">
+                        <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white drop-shadow-[0_6px_12px_rgba(0,0,0,0.9)] bg-black/30 px-3 md:px-4 lg:px-6 py-1 md:py-2 rounded-xl md:rounded-2xl border border-white/10">
                           {option}
                         </span>
                       </div>
@@ -434,15 +434,15 @@ export default function App() {
               </div>
 
               {/* Character Area */}
-              <div className="relative h-56 w-full mt-auto">
+              <div className="relative h-32 md:h-40 lg:h-48 xl:h-56 w-full mt-auto">
                 {level === 6 && (
-                  <div className="absolute top-[-50px] left-0 w-full flex justify-between px-6 text-sm font-black uppercase text-white/60 tracking-widest">
+                  <div className="absolute top-[-30px] md:top-[-40px] lg:top-[-50px] left-0 w-full flex justify-between px-4 md:px-6 text-xs md:text-sm font-black uppercase text-white/60 tracking-widest">
                     <span>Salida</span>
-                    <div className="flex-1 mx-6 border-b-4 border-dashed border-white/10" />
+                    <div className="flex-1 mx-4 md:mx-6 border-b-2 md:border-b-4 border-dashed border-white/10" />
                     <span>Meta 🏁</span>
                   </div>
                 )}
-                <div className="absolute top-0 left-0 w-full h-4 bg-white/5 rounded-full overflow-hidden border border-white/10">
+                <div className="absolute top-0 left-0 w-full h-3 md:h-4 bg-white/5 rounded-full overflow-hidden border border-white/10">
                   <motion.div 
                     className={`h-full shadow-[0_0_20px_rgba(59,130,246,0.8)] ${level === 6 ? 'bg-gradient-to-r from-orange-500 to-red-500' : 'bg-gradient-to-r from-blue-600 to-blue-400'}`}
                     animate={{ width: `${(correctInLevel / SUCCESS_THRESHOLD) * 100}%` }}
@@ -450,7 +450,7 @@ export default function App() {
                 </div>
                 
                 <motion.div 
-                  className="absolute bottom-0 text-[10rem] z-20"
+                  className="absolute bottom-0 text-6xl md:text-8xl lg:text-[10rem] z-20"
                   animate={{ 
                     left: `${(characterPos * 33.33) + 16.66}%`,
                     x: '-50%',
@@ -467,9 +467,9 @@ export default function App() {
                 </motion.div>
                 
                 {/* Controls Help */}
-                <div className="absolute bottom-4 left-0 w-full flex justify-between px-16 opacity-20">
-                  <ArrowLeft className="w-16 h-16" />
-                  <ArrowRight className="w-16 h-16" />
+                <div className="absolute bottom-2 md:bottom-4 left-0 w-full flex justify-between px-8 md:px-12 lg:px-16 opacity-20">
+                  <ArrowLeft className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16" />
+                  <ArrowRight className="w-8 h-8 md:w-12 md:h-12 lg:w-16 lg:h-16" />
                 </div>
               </div>
 
@@ -482,7 +482,7 @@ export default function App() {
                     exit={{ opacity: 0, scale: 1.5 }}
                     className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
                   >
-                    <div className={`px-12 py-8 rounded-[3rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] text-white text-5xl font-black border-4 ${feedback.type === 'success' ? 'bg-green-500 border-green-400' : 'bg-red-500 border-red-400'}`}>
+                    <div className={`px-6 md:px-8 lg:px-12 py-4 md:py-6 lg:py-8 rounded-2xl md:rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] text-white text-3xl md:text-4xl lg:text-5xl font-black border-2 md:border-4 ${feedback.type === 'success' ? 'bg-green-500 border-green-400' : 'bg-red-500 border-red-400'}`}>
                       {feedback.message}
                     </div>
                   </motion.div>
@@ -497,27 +497,27 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.2 }}
-              className="flex-1 flex flex-col items-center justify-center text-center space-y-8"
+              className="flex-1 flex flex-col items-center justify-center text-center space-y-6 md:space-y-8"
             >
               <motion.div 
                 animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="text-9xl"
+                className="text-6xl md:text-8xl lg:text-9xl"
               >
                 {currentLevelConfig.icon}
               </motion.div>
               <div className="space-y-2">
-                <h2 className="text-5xl font-black text-yellow-400 uppercase tracking-tighter">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-yellow-400 uppercase tracking-tighter">
                   {currentLevelConfig.successMessage}
                 </h2>
-                <p className="text-xl text-blue-200">¡Avanzando juntos como equipo!</p>
+                <p className="text-lg md:text-xl text-blue-200">¡Avanzando juntos como equipo!</p>
               </div>
               <button 
                 onClick={nextLevel}
-                className="group relative px-12 py-5 bg-green-600 text-white rounded-full text-2xl font-black hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(34,197,94,0.5)] active:scale-95 flex items-center gap-3"
+                className="group relative px-8 md:px-10 lg:px-12 py-4 md:py-5 bg-green-600 text-white rounded-full text-xl md:text-2xl font-black hover:bg-green-500 transition-all shadow-[0_0_30px_rgba(34,197,94,0.5)] active:scale-95 flex items-center gap-2 md:gap-3"
               >
                 SIGUIENTE MISIÓN
-                <ArrowRight className="w-8 h-8" />
+                <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
               </button>
             </motion.div>
           )}
@@ -527,26 +527,26 @@ export default function App() {
               key="finished"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex-1 flex flex-col items-center justify-center text-center space-y-10"
+              className="flex-1 flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 lg:space-y-10"
             >
               <div className="space-y-4">
-                <div className="inline-block p-10 bg-yellow-400 rounded-full shadow-[0_0_50px_rgba(250,204,21,0.4)]">
-                  <Flag className="w-24 h-24 text-white fill-white" />
+                <div className="inline-block p-6 md:p-8 lg:p-10 bg-yellow-400 rounded-full shadow-[0_0_50px_rgba(250,204,21,0.4)]">
+                  <Flag className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 text-white fill-white" />
                 </div>
-                <h2 className="text-6xl font-black uppercase tracking-tighter">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter">
                   {LEVELS[5].successMessage}
                 </h2>
-                <p className="text-2xl text-blue-200">¡Dominaste todas las operaciones como un gran equipo!</p>
+                <p className="text-lg md:text-xl lg:text-2xl text-blue-200">¡Dominaste todas las operaciones como un gran equipo!</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-8 w-full max-w-md">
-                <div className="bg-white/10 p-6 rounded-3xl border border-white/20">
+              <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8 w-full max-w-sm md:max-w-md">
+                <div className="bg-white/10 p-4 md:p-5 lg:p-6 rounded-2xl md:rounded-3xl border border-white/20">
                   <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Puntaje Final</p>
-                  <p className="text-5xl font-black text-blue-400">{score}</p>
+                  <p className="text-3xl md:text-4xl lg:text-5xl font-black text-blue-400">{score}</p>
                 </div>
-                <div className="bg-white/10 p-6 rounded-3xl border border-white/20">
+                <div className="bg-white/10 p-4 md:p-5 lg:p-6 rounded-2xl md:rounded-3xl border border-white/20">
                   <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Nivel Alcanzado</p>
-                  <p className="text-5xl font-black text-yellow-400">{level}</p>
+                  <p className="text-3xl md:text-4xl lg:text-5xl font-black text-yellow-400">{level}</p>
                 </div>
               </div>
 
