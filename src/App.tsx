@@ -371,7 +371,7 @@ export default function App() {
                   Misión Matemática <br /> en Equipo
                 </h1>
                 <p className="text-lg md:text-xl lg:text-2xl text-blue-200 max-w-2xl mx-auto font-medium">
-                  ¡Solo avanzando juntos como equipo podemos alcanzar la meta! Resuelve operaciones con 100 y 1000, ¡y también con decimales!
+                  ¡Juntos llegamos a la meta! Resuelve operaciones con 10, 100 y 1000... ¡y también con decimales!
                 </p>
               </div>
 
